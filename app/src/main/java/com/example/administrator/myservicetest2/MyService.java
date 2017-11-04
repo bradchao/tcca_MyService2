@@ -3,12 +3,15 @@ package com.example.administrator.myservicetest2;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
+import android.os.Bundle;
 import android.os.IBinder;
+import android.os.Message;
 import android.support.annotation.IntDef;
 import android.util.Log;
 
 public class MyService extends Service {
     private final IBinder mBinder = new LocalBinder();
+    private MainActivity.MyHandler handler = null;
 
     public class LocalBinder extends Binder {
         MyService getService(){
@@ -44,4 +47,21 @@ public class MyService extends Service {
         super.onDestroy();
         Log.i("brad", "onDestroy()");
     }
+
+    void doSomething(String name){
+        Log.i("brad", "Hello, " + name);
+
+        Message mesg = new Message();
+        Bundle b = new Bundle();
+        b.putString("what", "Hello, " + name);
+        mesg.setData(b);
+
+        handler.sendMessage(mesg);
+
+    }
+
+    void setHandler(MainActivity.MyHandler handler){
+        this.handler = handler;
+    }
+
 }
