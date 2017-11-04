@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
             myService = binder.getService();
             isBound = true;
             myService.setHandler(handler);
+
+            myService.setMainActivity(MainActivity.this);
         }
 
         @Override
@@ -41,6 +43,11 @@ public class MainActivity extends AppCompatActivity {
         handler = new MyHandler();
 
     }
+
+    TextView getTv(){
+        return tv;
+    }
+
     public void test1(View view){
         myService.doSomething("Brad");
     }
